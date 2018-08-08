@@ -78,11 +78,17 @@ namespace v2ray_taskbar
 		delegate void AppendTextDelegate(string text);
 		void AppendText(string text)
 		{
-			if (this.textBoxTaskbar.InvokeRequired) {
-				Invoke(new AppendTextDelegate(AppendText), new object[] { text });
-			} else {
-				this.textBoxTaskbar.AppendText(text);
-			}
+            if (IsHandleCreated)
+            {
+                if (this.textBoxTaskbar.InvokeRequired)
+                {
+                    Invoke(new AppendTextDelegate(AppendText), new object[] { text });
+                }
+                else
+                {
+                    this.textBoxTaskbar.AppendText(text);
+                }
+            }
 		}
 		// 最小化隐藏
 		void V2ray_SizeChanged(object sender, EventArgs e)
